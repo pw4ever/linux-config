@@ -1,0 +1,14 @@
+[Unit]
+Description=Report IP to a server
+
+[Service]
+Type=simple
+ExecStart=!PATH_TO_SCRIPT!report-ip.sh !SSH_SERVER! !REPORT_INTERVAL! !REPORT_PATH!
+
+# the user should have necessary SSH key to log into the server
+User=!USER!
+
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

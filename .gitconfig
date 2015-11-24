@@ -1,0 +1,7 @@
+[user]
+	email = write.to.peng.wei@gmail.com
+	name = Wei Peng
+[push]
+	default = simple
+[core]
+	editor = vim

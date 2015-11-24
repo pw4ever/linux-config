@@ -1,0 +1,54 @@
+(setf sb-impl::*default-external-format* :utf-8) 
+
+;;; The following lines added by ql:add-to-init-file:
+#-quicklisp
+(let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp"
+                                       (user-homedir-pathname))))
+  (when (probe-file quicklisp-init)
+    (load quicklisp-init)))
+
+(defmacro quickload-and-optionally-use (&rest systems-or-use)
+  "quickload and optionally (all SYSTEMS after T and before end/NIL) use the SYSTEMs"
+  `(progn
+     ,@(let ((use nil))
+	 (loop :for system :in systems-or-use
+	       :if (or (null system) (eql system t))
+	       :do (setf use system)
+	       :else
+	       :collect
+	       `(progn
+		  (ql:quickload ,system)
+		  (when ,use
+		    (use-package ,system)))
+	       :end))))
+
+
+(with-open-stream (*standard-output* (make-broadcast-stream))
+
+  (progn
+    (ql:quickload :alexandria)
+    (use-package :alexandria))
+
+  (quickload-and-optionally-use t :cl-ppcre)
+
+  (quickload-and-optionally-use :iterate)
+
+  (quickload-and-optionally-use t :named-readtables)
+
+  (quickload-and-optionally-use :fare-quasiquote-extras)
+
+  (ql:quickload '(:optima :optima.ppcre))
+  (use-package '(:optima :optima.extra :optima.ppcre))
+
+)
+
+#+(or cmu sbcl scl)
+(pushnew 'asdf:clear-configuration
+	 #+(or cmu scl) ext:*before-save-initializations*
+	 #+sbcl sb-ext:*save-hooks*)
+
+(setf *random-state* (make-random-state t))
+
+;; Local Variables:
+;; mode: lisp
+;; End:

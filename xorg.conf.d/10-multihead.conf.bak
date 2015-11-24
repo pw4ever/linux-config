@@ -1,0 +1,47 @@
+Section "Device"
+    Identifier             "intel lvds"
+    Driver                 "intel"
+    BusID                  "PCI:0:2:0"
+    Option "ZaphodHeads" "LVDS-1"
+    Screen 0
+EndSection
+
+Section "Device"
+    Identifier             "nouveau vga"
+    Driver                 "nouveau"
+    BusID                  "PCI:1:0:0"
+    Option "ZaphodHeads" "VGA-2"
+    Screen 0
+EndSection
+
+Section "Device"
+    Identifier             "nouveau dp"
+    Driver                 "nouveau"
+    BusID                  "PCI:1:0:0"
+    Option "ZaphodHeads" "DP-1"
+    Screen 1
+EndSection
+
+Section "Screen"
+    Identifier "screen1"
+    Device "intel lvds"
+EndSection
+
+Section "Screen"
+    Identifier "screen2"
+    Device "nouveau vga"
+EndSection
+
+Section "Screen"
+    Identifier "screen3"
+    Device "nouveau dp"
+EndSection
+
+Section "ServerLayout"
+    Identifier "layout1"
+    Option "Xinerama" "on"
+    Option "Clone" "off"
+    Screen 0 "screen1"
+    Screen 1 "screen2" LeftOf "screen1"
+    Screen 2 "screen2" RightOf "screen1"
+EndSection

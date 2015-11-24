@@ -1,0 +1,13 @@
+#!/bin/bash - 
+# start jstatd per official instruction
+# reference: http://docs.oracle.com/javase/7/docs/technotes/tools/share/jstatd.html
+# written by: Wei Peng <4pengw@gmail.com> 
+# version: 20141229
+
+JSTATD=${JSTATD-jstatd}
+
+${JSTATD} -J-Djava.security.policy=/dev/stdin <<-'here-end'
+grant codebase "file:${java.home}/../lib/tools.jar" {
+   permission java.security.AllPermission;
+};
+here-end

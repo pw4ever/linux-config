@@ -1,0 +1,22 @@
+#! /bin/bash
+# start-up script with JMX enabled
+# author: Wei Peng <4pengw@gmail.com>
+# version: 20141229
+# deps: bash, java
+
+JAVA=${JAVA-java}
+
+# http://stackoverflow.com/a/246128
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+JMX_PORT=$1
+
+# if the first argument is a number (for JMX port)
+if [ ${JMX_PORT} -ge 0 ] 2> /dev/null; then
+    shift # remove JMX_PORT from the argument list
+    set -- ${JVM_OPTS--Xmx2048m} "-Dcom.sun.management.jmxremote" "-Dcom.sun.management.jmxremote.ssl=false" "-Dcom.sun.management.jmxremote.authenticate=false" "-Dcom.sun.management.jmxremote.port=${JMX_PORT}" "$@"
+else # if the first argument is not a port
+    set -- ${JVM_OPTS--Xmx2048m} "$@"
+fi
+
+${JAVA} "$@"

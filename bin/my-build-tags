@@ -1,0 +1,12 @@
+#!/bin/bash - 
+# build "cscope"/"ctags" tags from "find" argument
+# written by: Wei Peng <4pengw@gmail.com> 
+# version: 20141229
+
+CTAGS=${CTAGS-ctags}
+CSCOPE=${CSCOPE-cscope}
+
+find "$@" -type f -readable > src-files
+cat src-files | ${CTAGS} -L-
+cat src-files | ${CTAGS} -eL-
+cat src-files | ${CSCOPE} -bqi-

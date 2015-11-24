@@ -1,0 +1,57 @@
+#!/bin/bash - 
+# Soot (https://sable.github.io/soot/) start-up script for APK analysis
+# author: Wei Peng <write.to.peng.wei@gmail.com>
+# version: 20150217
+# deps: java, wget
+
+chmod +x $0
+
+# http://stackoverflow.com/a/246128
+DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
+WGET=${WGET:-'wget'}
+
+## resolve dependencies
+
+MAIN='soot'
+
+declare -a url_prefix content 
+
+url_prefix=(
+'https://raw.githubusercontent.com/pw4ever/web-of-apks/gh-pages/bin/'
+'https://github.com/pw4ever/web-of-apks/releases/download/tryout/'
+)
+
+content=(
+"${MAIN}"
+'android.jar'
+)
+
+for index in $(seq 0 $(( ${#content[@]} - 1 ))) 
+do
+  name=${content[$index]}
+  prefix=${url_prefix[$index]}
+  if ! [[ -f "${DIR}/${name}" ]]; then
+    "${WGET}" -nv -nc -nd -P "${DIR}" "${prefix}/${name}"
+  fi
+  chmod +x "${DIR}/${name}"
+done
+
+## command line parsing
+
+apk=${1}
+
+if ! [[ -n "${apk}" ]]; then
+  echo "$0 <apk filename>" > /dev/stderr
+  exit 1
+fi
+
+out=$(basename $apk .apk)
+
+if [[ $out == $apk ]]; then
+  out="${out}-out"
+fi
+
+## do the real work
+
+"${DIR}/${MAIN}" -f J --src-prec apk --process-path "$apk" --force-android-jar "${DIR}/android.jar" --allow-phantom-refs -d ${out}
