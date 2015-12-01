@@ -10,7 +10,7 @@
 
                   ;;; ClojureScript
                   [lein-cljsbuild "1.1.1"]  ; https://github.com/clojure/clojurescript/wiki/lein-cljsbuild
-                  [lein-figwheel "0.5.0-2"] ; https://github.com/bhauman/lein-figwheel
+                  ;;[lein-figwheel "0.5.0-2"] ; https://github.com/bhauman/lein-figwheel
                   [lein-npm "0.6.1"]    ; https://github.com/RyanMcG/lein-npm
                   [lein-cljsasset "0.2.0"] ; https://github.com/pbostrom/lein-cljsasset
 
