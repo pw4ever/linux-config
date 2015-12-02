@@ -47,4 +47,4 @@ setopt nohup
 PROMPT='%{$fg_bold[red]%}%? %{$fg[cyan]%}%c %{$reset_color%}'
 PROMPT="%{$fg_bold[green]%}%n%{$fg_bold[red]%}@%{$fg_bold[green]%}%m $PROMPT"
 
-#source $HOME/.profile ## should be in $HOME/.zprofile
+source $HOME/.profile

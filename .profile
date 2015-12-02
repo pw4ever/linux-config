@@ -27,7 +27,7 @@ export CCACHE_PATH="/usr/bin"
 export CCACHE_DIR="$HOME/.ccache"
 
 # go
-local MY="$HOME/go"
+MY="$HOME/go"
 [[ -d "$MY" ]] || mkdir -p "$MY"
 if [[ "x$GOPATH" == "x" ]]; then
   export GOPATH="$MY"
@@ -81,3 +81,7 @@ export GTAGSLABEL=pygments
 
 # Leiningen
 export LEIN_ROOT="1"  # allow root to use Leiningen
+
+# Node.js Version Manager
+export NVM_DIR="/home/wei/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
