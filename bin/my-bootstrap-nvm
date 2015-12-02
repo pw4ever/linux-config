@@ -1,7 +1,8 @@
 #!/bin/bash - 
 
+# SHELL=... PROFILE=... is to prevent the install script being clever in adding lines to .zshrc, .bashrc, .profile, etc.
 # http://stackoverflow.com/a/6569837
 type -P curl && \
-  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash || \
+  curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | SHELL='' PROFILE=$(mktemp) bash || \
   type -P wget && \
-  wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+  wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | SHELL='' PROFILE=$(mktemp) bash
