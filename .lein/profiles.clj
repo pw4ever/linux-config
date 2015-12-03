@@ -39,6 +39,12 @@
                        ;; https://github.com/zcaudate/hara
                        ;; http://docs.caudate.me/hara/
                        [im.chit/hara.reflect "2.2.11"] ; JVM reflections
+
+                       ;; https://github.com/weavejester/hiccup
+                       [hiccup "1.0.5"] ; edn => HTML
+
+                       ;; https://github.com/noprompt/garden
+                       [garden "1.3.0"] ; edn => CSS
                        
                        ;; https://github.com/pallet/alembic
                        [alembic "0.3.2"] ; JVM classpath reloading
@@ -90,6 +96,8 @@
                                     )
                                (require '[alembic.still
                                           :refer [distill load-project]]
+                                        '[hiccup.core :refer [html]]
+                                        '[garden.core :refer [css]]
                                         ;; piggieback/cljs-repl
                                         '[cemerick.piggieback
                                           :as piggieback]
